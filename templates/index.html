@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome to Student Management System</h1>
+    <ul>
+        <li><a href="{{ url_for('show_students') }}">Show all Students</a></li>
+        <li><a href="{{ url_for('add_student') }}">Add New Student</a></li>
+        <li><a href="{{ url_for('search_student') }}">Search for a Student</a></li>
+        {% if student %}
+        <li><a href="{{ url_for('update_student', roll=student['roll']) }}">Update Student</a></li>
+        {% endif %}
+    </ul>
+    {% block content %}
+
+    {% endblock %}
+</body>
+</html>

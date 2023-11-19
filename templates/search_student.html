@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <h2>Search Student</h2>
+    <form action="{{ url_for('search_student') }}" method="post">
+        <label for="roll">Enter roll no. to search:</label>
+        <input type="text" id="roll" name="roll" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if student %}
+        <h3>Student Details</h3>
+        <table border="1">
+            <tr>
+                <th>Roll</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>DOB</th>
+                <th>Class</th>
+                <th>Subjects</th>
+                <th>Marks</th>
+                <th>Percentage</th>
+                <th>Grade</th>
+            </tr>
+            <tr>
+                <td>{{ student['roll'] }}</td>
+                <td>{{ student['name'] }}</td>
+                <td>{{ student['age'] }}</td>
+                <td>{{ student['dob'] }}</td>
+                <td>{{ student['class'] }}</td>
+                <td>
+                    {% if student['subjects'] is defined %}
+                        {{ ', '.join(student['subjects']) }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if student['marks'] is defined and student['marks'] is iterable %}
+                        {% for mark in student['marks'] %}
+                            {{ mark }}{% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if student['percentage'] is defined %}
+                        {{ student['percentage'] }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+                <td>
+                    {% if student['grade'] is defined %}
+                        {{ student['grade'] }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+{% endblock %}

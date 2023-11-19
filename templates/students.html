@@ -1,0 +1,43 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <h2>All Students</h2>
+    <table border="1">
+        <tr>
+            <th>Roll</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>DOB</th>
+            <th>Class</th>
+            <th>Subjects</th>
+            <th>Marks</th>
+            <th>Percentage</th>
+            <th>Grade</th>
+            <th>Actions</th>
+        </tr>
+        {% for student in students %}
+            <tr>
+                <td>{{ student['roll'] }}</td>
+                <td>{{ student['name'] }}</td>
+                <td>{{ student['age'] }}</td>
+                <td>{{ student['dob'] }}</td>
+                <td>{{ student['class'] }}</td>
+                <td>{{ student['subjects']|join(', ') }}</td>
+                <td>
+                    {% if student['marks'] is iterable %}
+                        {{ student['marks']|join(', ') }}
+                    {% else %}
+                        {{ student['marks'] }}
+                    {% endif %}
+                </td>
+                <td>{{ student['percentage'] }}</td>
+                <td>{{ student['grade'] }}</td>
+                <td>
+                    <a href="{{ url_for('search_student', roll=student['roll']) }}">View</a>
+                    |
+                    <a href="{{ url_for('delete_student', roll=student['roll']) }}">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
